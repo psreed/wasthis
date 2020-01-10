@@ -25,3 +25,6 @@
 .project
 .envrc
 /inventory.yaml
+/bolt.yaml
+params.json
+

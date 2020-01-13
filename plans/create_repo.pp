@@ -1,5 +1,5 @@
 ################################################################################
-### Plan Details 
+### Plan Details
 ################################################################################
 ### Plan Name    : create_repo
 ### What is does : Creates a copy of an IBM Webphere Application Server Repository
@@ -7,9 +7,9 @@
 ### Date         : 2020-01-11
 ### Description  :
 ###   This plan is designed to ease in the installation of IBM WAS.
-###   It will create a repository which IBM WAS can be installed 
-###   from using the Puppet WAS and IBM Installation Manager 
-###   Modules From the Puppet Forge. Also are included capabilities to list 
+###   It will create a repository which IBM WAS can be installed
+###   from using the Puppet WAS and IBM Installation Manager
+###   Modules From the Puppet Forge. Also are included capabilities to list
 ###   available packages and fixes to those packages for a specified IBM repo url.
 ###
 ################################################################################
@@ -56,8 +56,8 @@ plan wasthis::create_repo (
     ## Check local and remote MD5 (to avoid download and save time if it's already the same file)
     if file::exists($package_utility_zipfile) {
       $local_file_check=run_command("/bin/sh -c \"
-        if [ -f ${package_utility_zipfile} ]; then 
-          md5sum \\\"${package_utility_zipfile}\\\" | awk '{print \\\$1}';
+        if [ -f ${package_utility_zipfile} ]; then
+          openssl md5 -r \\\"${package_utility_zipfile}\\\" | awk '{print \\\$1}';
         fi
         \"",
         'localhost','Checking MD5SUM for Local File')
@@ -66,7 +66,7 @@ plan wasthis::create_repo (
 
       $remote_file_check=run_command("/bin/sh -c \"
         if [ -f \\\"${remote_install_dir}/${remote_ibm_pu_zipfile}\\\" ]; then
-          md5sum \\\"${remote_install_dir}/${remote_ibm_pu_zipfile}\\\" | awk '{print \\\$1}';
+          openssl md5 -r \\\"${remote_install_dir}/${remote_ibm_pu_zipfile}\\\" | awk '{print \\\$1}';
         fi
         \"",
         $targets,'Checking MD5SUM for Remote File (if it exists)','_run_as' => 'root')
@@ -195,7 +195,7 @@ plan wasthis::create_repo (
         -target ${repo_directory} \
         -secureStorageFile ${credential_file} \
         -masterPasswordFile ${master_password_file} \
-        -acceptLicense 	
+        -acceptLicense
     \"",
     $targets,"Copy repository files to ${repo_directory} from ${was_repo}",'_run_as' => 'root')
   }

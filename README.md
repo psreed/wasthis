@@ -3,6 +3,8 @@
 This module currently includes just a single Bolt Plan -- create_repo
   
 # Plan Details
+
+```
 Plan Name    : create_repo
 What is does : Creates a copy of an IBM Webphere Application Server Repository
 Developed By : Paul Reed (paul.reed@puppet.com)
@@ -13,3 +15,4 @@ Description  :
   from using the Puppet WAS and IBM Installation Manager
   Modules From the Puppet Forge. Also are included capabilities to list
   available packages and fixes to those packages for a specified IBM repo url.
+```

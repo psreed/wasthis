@@ -79,7 +79,7 @@ plan wasthis::create_repo (
           out::message('MD5SUM of Remote and Local files match. Upload not required.')
         }
         else {
-          out::message('MD5SUM Missmatch or File Not Exist at remote location. Uploading file...')
+          out::message('MD5SUM mismatch or file does not exist at remote location. Uploading file...')
           upload_file($package_utility_zipfile,"${remote_install_dir}/ibm_pu.zip",$targets,'_run_as' => 'root')
         }
       }

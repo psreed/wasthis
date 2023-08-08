@@ -2,25 +2,26 @@
 ### Plan Details
 ################################################################################
 ### Plan Name    : create_repo
-### What is does : Creates a copy of an IBM Webphere Application Server Repository
+### What it does : Creates a copy of an IBM Webphere Application Server Repository
 ### Developed By : Paul Reed (paul.reed@puppet.com)
 ### Date         : 2020-01-11
 ### Description  :
 ###   This plan is designed to ease in the installation of IBM WAS.
 ###   It will create a repository which IBM WAS can be installed
 ###   from using the Puppet WAS and IBM Installation Manager
-###   Modules From the Puppet Forge. Also are included capabilities to list
+###   Modules From the Puppet Forge. Also included are capabilities to list
 ###   available packages and fixes to those packages for a specified IBM repo url.
 ###
 ################################################################################
 
 plan wasthis::create_repo (
   TargetSpec $targets,
+  ## Required inputs for this plan
   String     $package_utility_zipfile,
   String     $ibm_id_user,
   String     $ibm_id_password,
   String     $ibm_credential_store_master_password,
-
+  ## Optional inputs for this plan
   Optional[String[1]] $remote_install_dir    = '/opt/ibm_pu_installer',
   Optional[String[1]] $remote_ibm_pu_zipfile = 'ibm_pu.zip',
   Optional[String[1]] $was_repo              = 'http://www.ibm.com/software/repositorymanager/com.ibm.websphere.NDTRIAL.v85',
@@ -78,7 +79,7 @@ plan wasthis::create_repo (
           out::message('MD5SUM of Remote and Local files match. Upload not required.')
         }
         else {
-          out::message('MD5SUM Missmatch or File Not Exist at remote location. Uploading file...')
+          out::message('MD5SUM mismatch or file does not exist at remote location. Uploading file...')
           upload_file($package_utility_zipfile,"${remote_install_dir}/ibm_pu.zip",$targets,'_run_as' => 'root')
         }
       }
